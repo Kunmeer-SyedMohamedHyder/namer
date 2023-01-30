@@ -1,8 +1,12 @@
 FROM ruby:2.1
-MAINTAINER Education Team at Docker <education@docker.com>
+LABEL Author="Education Team at Docker <education@docker.com>"
 
-COPY . /src
 WORKDIR /src
+
+COPY Gemfile Gemfile.lock ./
+RUN bundler install
+
+COPY . .
 RUN bundler install
 
 CMD ["rackup", "--host", "0.0.0.0"]
